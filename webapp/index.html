@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+
+    <link href="css/nicofog-style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+
+</head>
+<body class="masthead">
+
+<h1>Nicofog</h1>
+
+<div style="text-align: center">
+    <div id="view"></div>
+
+    <p th:if='false' class="error">Wrong user or passwords</p>
+
+    <form action="/login" method="post">
+        <input id="user" name="name" type="text" placeholder="Sample login">
+        <input id="password" name="password" type="password" placeholder="password">
+        <input id="enter" type="submit" value="Enter">
+        <br><a href="registration.html">or registration</a>
+    </form>
+</div>
+
+Authenticated user roles:
+
+<span sec:authorize="isAuthenticated()">
+| Logged user: <span sec:authentication="name"></span> |
+Roles: <span sec:authentication="principal.authorities"></span> |
+<a th:href="@{/logout}">Sign Out</a>
+</span>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js"></script>
+<script src="js/loggin.js"></script>
+
+</body>
+</html>

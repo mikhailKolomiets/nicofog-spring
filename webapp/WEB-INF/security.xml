@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+                    http://www.springframework.org/schema/security
+                     http://www.springframework.org/schema/security/spring-security-4.1.xsd">
+
+    <http>
+        <intercept-url pattern="/user**" access="hasRole('USER')"/>
+        <intercept-url pattern="/admin**" access="hasRole('ADMIN')"/>
+
+
+        <form-login
+                    default-target-url="/user-page.jsp"
+                    login-page="/index.html"
+                    username-parameter="name"
+                    always-use-default-target="true"/>
+        <logout logout-url="/logout" logout-success-url="/"/>
+        <anonymous username="guest" granted-authority="ANONYMOUS"/>
+        <http-basic/>
+        <remember-me/>
+        <csrf disabled="true"/>
+    </http>
+
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+                <user name="admin" password="pass@1234" authorities="ROLE_USER"/>
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>

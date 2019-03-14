@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="mikhail">
+        <createTable tableName="user">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(23)"/>
+            <column name="role" type="varchar(20)"/>
+            <column name="cigarette_price" type="int"/>
+            <column name="registration_date" type="varchar(23)"/>
+            <column name="password" type="varchar(32)"/>
+            <column name="cigarette_id" type="int"/>
+        </createTable>
+        <addAutoIncrement tableName="user" columnName="id" columnDataType="int"/>
+
+        <createTable tableName="cigarette">
+            <column name="id" type="int" defaultValue="0">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="last_smoke_time" type="varchar(23)" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+                <column name="average_time" type="int" defaultValue="0">
+                    <constraints nullable="false"/>
+                </column>
+            <column name="level" type="int" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cigarettes_per_day" type="int" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="all_cigarettes_smoke" type="int" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement tableName="cigarette" columnName="id" columnDataType="int"/>
+        <addForeignKeyConstraint baseTableName="user" baseColumnNames="cigarette_id" constraintName="ucfk"
+                                 referencedTableName="cigarette" referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
